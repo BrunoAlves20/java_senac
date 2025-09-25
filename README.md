@@ -1,63 +1,58 @@
-***
+# Quiz de Matemática em Java
 
-# Bot de Notícias Google News
+Este é um simples jogo de quiz de matemática desenvolvido em Java com uma interface gráfica feita em Swing. O objetivo do jogador é responder ao maior número de questões matemáticas possível dentro de um tempo limite. As pontuações são salvas localmente em um arquivo para criar um ranking persistente.
 
-Este projeto é um bot Java simples que busca notícias no Google News pelo termo desejado, extrai e salva os links das notícias em um arquivo de texto exclusivo para cada termo pesquisado.
+## ✨ Funcionalidades
 
-## Funcionalidades
+- **Quiz com Tempo Limite:** Um timer regressivo de 60 segundos (customizável) para cada rodada.
+- **Geração de Problemas:** Criação de problemas matemáticos aleatórios envolvendo soma, subtração, multiplicação e divisão.
+- **Interface Gráfica:** UI simples e intuitiva construída com a biblioteca nativa Java Swing.
+- **Sistema de Pontuação:** A pontuação é incrementada a cada resposta correta.
+- **Ranking Local:** As melhores pontuações são salvas em um arquivo local (`ranking.dat`), eliminando a necessidade de um banco de dados.
+- **Persistência de Dados:** O ranking é carregado a cada início e exibido no final de cada partida.
 
-- Recebe um termo de busca pelo terminal.
-- Faz uma consulta ao Google News.
-- Extrai todos os links das notícias relacionadas ao termo buscado.
-- Salva todos os links em um arquivo chamado `links_noticias_TERMO.txt`, onde `TERMO` será o termo pesquisado, facilitando a organização dos resultados sem sobrescrever arquivos anteriores.
+## 🛠️ Tecnologias Utilizadas
 
+- **Java:** Linguagem de programação principal.
+- **Java Swing:** Biblioteca para a criação da interface gráfica do usuário (GUI).
+- **Serialização de Objetos Java:** Para salvar e carregar os objetos de pontuação em um arquivo.
 
-## Pré-Requisitos
+## 📋 Pré-requisitos
 
-- Java 8 ou superior instalado.
-- VS Code instalado.
-- jsoup-1.17.2.jar (baixado em `lib/`).
+Para compilar e executar este projeto, você precisará ter o **JDK (Java Development Kit)** instalado em sua máquina. É recomendada a versão 8 ou superior.
 
+## 🚀 Como Rodar o Projeto
 
-## Instalação do Jsoup
+Você pode rodar o projeto diretamente através de um terminal/prompt de comando.
 
-Baixe o arquivo jsoup-1.17.2.jar usando o PowerShell, já dentro da pasta `bot-noticias`:
+1.  **Clone ou baixe** todos os arquivos `.java` para uma mesma pasta em seu computador.
 
-```powershell
-Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/org/jsoup/jsoup/1.17.2/jsoup-1.17.2.jar" -OutFile "lib/jsoup-1.17.2.jar"
-```
+2.  **Abra um terminal** (Prompt de Comando, PowerShell, ou Terminal do Linux/macOS).
 
+3.  **Navegue até a pasta** onde você salvou os arquivos.
+    ```bash
+    cd caminho/para/a/pasta/do/projeto
+    ```
 
-## Como Rodar pelo VS Code
+4.  **Compile os arquivos `.java`** usando o compilador do Java. Este comando irá compilar todos os arquivos Java na pasta atual.
+    ```bash
+    javac *.java
+    ```
 
-1. Abra o VS Code na pasta `bot-noticias`.
-2. Certifique-se de que a estrutura de pastas está igual à mostrada acima.
-3. Compile o código (estando na pasta raiz do projeto):
-   - No Windows:
-```powershell
-javac -cp "lib/jsoup-1.17.2.jar" src/BotNoticias.java
-```
+5.  **Execute a classe principal** para iniciar o jogo.
+    ```bash
+    java Main
+    ```
 
-4. Execute o programa:
-   - No Windows:
-```powershell
-java -cp "src;lib/jsoup-1.17.2.jar" BotNoticias
-```
+Após executar o último comando, a janela do quiz de matemática aparecerá e você poderá começar a jogar!
 
-5. Digite o termo da busca quando solicitado, aguarde e verifique o arquivo gerado, por exemplo `links_noticias_tecnologia.txt`, na raiz da pasta do projeto.
+## 📂 Estrutura do Projeto
 
-## Explicação do Código
+O código está organizado nas seguintes classes:
 
-- O código pede um termo de busca ao usuário.
-- Monta a URL do Google News usando esse termo.
-- Usa a biblioteca Jsoup para baixar e parsear a página HTML.
-- Filtra os links de notícias usando o seletor adequado.
-- Salva apenas os links encontrados em um arquivo de texto, um por linha, nomeado conforme o termo pesquisado para que cada busca tenha seu próprio arquivo.
-
-
-## Observações
-
-- O Google pode exigir captcha para muitas requisições automáticas — em caso de bloqueio, tente rodar o programa novamente após alguns minutos.
-- Este projeto é apenas para fins educacionais e demonstrações.
-
-***
+-   `Main.java`: Classe principal que inicia a aplicação e a interface gráfica.
+-   `QuizScreen.java`: O coração do projeto. Responsável por toda a interface gráfica (GUI) e pela lógica principal do jogo (timer, pontuação, etc.).
+-   `ProblemGenerator.java`: Funciona como uma "API" local para gerar as questões matemáticas de forma aleatória.
+-   `ScoreManager.java`: Gerencia o salvamento e o carregamento das pontuações no arquivo local `ranking.dat`.
+-   `PlayerScore.java`: Classe modelo para armazenar os dados de um jogador (nome e pontuação). É serializável para poder ser salva em arquivo.
+-   `MathProblem.java`: Classe modelo simples para representar um problema matemático, contendo a pergunta e a resposta correta.
