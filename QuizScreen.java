@@ -61,7 +61,7 @@ public class QuizScreen extends JFrame {
     private void startGame() {
         // Reseta o estado do jogo
         score = 0;
-        timeLeft = 60;
+        timeLeft = 30;
         scoreLabel.setText("Pontos: " + score);
         timerLabel.setText("Tempo: " + timeLeft);
         answerField.setEnabled(true);

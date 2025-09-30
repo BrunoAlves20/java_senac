@@ -6,16 +6,26 @@ import java.util.List;
 public class ScoreManager {
     private static final String SCORES_FILE = "ranking.dat";
 
-    // Salva uma nova pontuação no final do arquivo
+    // Salva a nova pontuação na lista e ressalva o arquivo inteiro
     public void saveScore(PlayerScore score) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SCORES_FILE, true))) {
-            oos.writeObject(score);
+        // 1. Carrega as pontuações que já existem
+        List<PlayerScore> scores = loadScores();
+        
+        // 2. Adiciona a nova pontuação à lista
+        scores.add(score);
+
+        // 3. Sobrescreve o arquivo antigo com a lista atualizada
+        //    O 'false' no FileOutputStream garante que o arquivo seja recriado.
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SCORES_FILE, false))) {
+            for (PlayerScore s : scores) {
+                oos.writeObject(s);
+            }
         } catch (IOException e) {
             System.err.println("Erro ao salvar pontuação: " + e.getMessage());
         }
     }
 
-    // Carrega todas as pontuações do arquivo
+    // Carrega todas as pontuações do arquivo (nenhuma mudança necessária aqui)
     public List<PlayerScore> loadScores() {
         List<PlayerScore> scores = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SCORES_FILE))) {
